@@ -15,13 +15,25 @@ export default function Home() {
   );
   const [product, setProduct] = useState(searchParams.get("product"));
 
+  const [highestPrice, setHighestPrice] = useState(0);
+  const [lowestPrice, setLowestPrice] = useState(999999999);
+
   useEffect(() => {
     fetch(`http://localhost:3001/${marketplace}/${product}`, {
       method: "GET",
     })
+      .catch(() => {})
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch(() => {});
+      .then((data) => {
+        data.forEach((element) => {
+          if (element.price > highestPrice) {
+            setHighestPrice(element.price);
+          }
+          if (element.price < lowestPrice) {
+            setLowestPrice(element.price);
+          }
+        });
+      });
   }, []);
 
   return (
@@ -42,11 +54,14 @@ export default function Home() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: "column",
         }}
       >
         <h2>
           {marketplace}-{product}
         </h2>
+        <p>Lowest Price: {lowestPrice}</p>
+        <p>Highest Price: {highestPrice}</p>
       </div>
     </>
   );
