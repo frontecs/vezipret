@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Chart as ChartJS,
@@ -10,7 +9,6 @@ import {
   Title,
   Tooltip,
   Legend,
-  scales,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
@@ -32,7 +30,7 @@ export const options = {
     y: {
       display: true,
       title: {
-        display: false,
+        display: true,
         text: "Preț (RON)",
         color: "#fff",
       },
@@ -52,22 +50,26 @@ export const options = {
 };
 
 export default function Chart({ prices }) {
-  const labels = [];
-  // i have no idea why i have to reverse it, but it works like this so i'm not gonna touch it.
-  for (let i = prices.length - 1; i > -1; i--) {
-    let date = new Date(prices[i].created_at);
-    labels.push(date.toLocaleDateString() + " " + date.toLocaleTimeString());
-  }
+  const [data, setData] = useState([]);
+  const [labels, setLabels] = useState([]);
   const [datasets, setDatasets] = useState([]);
-  useEffect(() => {
-    if (prices.length === 0) {
-      return;
-    }
 
-    let data = [];
+  useEffect(() => {
+    console.log("prices", prices);
+
+    let a_data = [];
+    let a_labels = [];
+
     prices.forEach((element) => {
-      data.push(element.price);
+      let date = new Date(element.created_at);
+      a_labels.push(
+        date.toLocaleDateString() + " " + date.toLocaleTimeString()
+      );
+      a_data.push(element.price);
     });
+
+    setData(a_data.reverse());
+    setLabels(a_labels.reverse());
 
     setDatasets([
       {
@@ -79,6 +81,7 @@ export default function Chart({ prices }) {
       },
     ]);
   }, [prices]);
+
   return (
     <div>
       <Line height={300} options={options} data={{ labels, datasets }} />
