@@ -3,28 +3,34 @@
 import Head from "next/head";
 import Topbar from "@/components/Topbar";
 
-import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function Home() {
-  const searchParams = useSearchParams();
-
-  const [marketplace, setMarketplace] = useState(
-    searchParams.get("marketplace")
-  );
-  const [product, setProduct] = useState(searchParams.get("product"));
+export default function Price() {
+  const [marketplace, setMarketplace] = useState();
+  const [product, setProduct] = useState();
 
   const [highestPrice, setHighestPrice] = useState(0);
   const [lowestPrice, setLowestPrice] = useState(999999999);
 
   useEffect(() => {
+    let params = new URLSearchParams(window.location.search);
+
+    let marketplace = params.get("marketplace");
+    let product = params.get("product");
+
+    setMarketplace(marketplace);
+    setProduct(product);
+
     fetch(`http://localhost:3001/${marketplace}/${product}`, {
       method: "GET",
     })
       .catch(() => {})
       .then((response) => response.json())
       .then((data) => {
+        if (!Array.isArray(data)) {
+          return;
+        }
         data.forEach((element) => {
           if (element.price > highestPrice) {
             setHighestPrice(element.price);
