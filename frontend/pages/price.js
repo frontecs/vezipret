@@ -5,13 +5,13 @@ import Topbar from "@/components/Topbar";
 
 import { useEffect } from "react";
 import { useState } from "react";
+import Chart from "@/components/Chart";
 
 export default function Price() {
   const [marketplace, setMarketplace] = useState();
   const [product, setProduct] = useState();
 
-  const [highestPrice, setHighestPrice] = useState(0);
-  const [lowestPrice, setLowestPrice] = useState(999999999);
+  const [prices, setPrices] = useState([]);
 
   useEffect(() => {
     let params = new URLSearchParams(window.location.search);
@@ -31,14 +31,7 @@ export default function Price() {
         if (!Array.isArray(data)) {
           return;
         }
-        data.forEach((element) => {
-          if (element.price > highestPrice) {
-            setHighestPrice(element.price);
-          }
-          if (element.price < lowestPrice) {
-            setLowestPrice(element.price);
-          }
-        });
+        setPrices(data);
       });
   }, []);
 
@@ -66,8 +59,7 @@ export default function Price() {
         <h2>
           {marketplace}-{product}
         </h2>
-        <p>Lowest Price: {lowestPrice}</p>
-        <p>Highest Price: {highestPrice}</p>
+        <Chart prices={prices} />
       </div>
     </>
   );

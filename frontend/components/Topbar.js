@@ -6,7 +6,7 @@ export default function Topbar() {
     >
       <Image
         src={require("@/public/logo.png")}
-        width={100}
+        width={154}
         alt="logo vezipret"
       />
     </div>

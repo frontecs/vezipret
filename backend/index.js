@@ -8,7 +8,7 @@ const app = express();
 const { createClient } = require("@supabase/supabase-js");
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  (supabaseKey = process.env.SUPABASE_SERVICE_KEY)
+  process.env.SUPABASE_SERVICE_KEY
 );
 
 app.get("/:marketplace/:product", cors(), async (req, res) => {
