@@ -43,13 +43,13 @@ app.post("/:marketplace/:product", async (req, res) => {
     .select("*")
     .eq("marketplace", req.params.marketplace)
     .eq("product", req.params.product)
-    .eq("price", price);
+    .order("created_at", { ascending: false });
 
   if (latestError) {
     return res.status(500).json({ error: latestError.message });
   }
 
-  if (latestData.length > 0) {
+  if (latestData.length > 0 && latestData[0].price == price) {
     console.log("Price is the same");
     return res.status(200).json({ message: "Price is the same" });
   }
