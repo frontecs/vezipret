@@ -84,7 +84,12 @@ export default function Chart({ prices }) {
 
   return (
     <div>
-      <Line height={300} options={options} data={{ labels, datasets }} />
+      <Line
+        height={400}
+        width={500}
+        options={options}
+        data={{ labels, datasets }}
+      />
     </div>
   );
 }

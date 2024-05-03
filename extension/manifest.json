@@ -12,6 +12,11 @@
       "matches": ["https://*.pcgarage.ro/*"],
       "js": ["stores/pcgarage.js"],
       "run_at": "document_idle"
-    }
+    },
+    {
+          "matches": ["https://*.emag.ro/*"],
+          "js": ["stores/emag.js"],
+          "run_at": "document_idle"
+        }
   ]
 }
