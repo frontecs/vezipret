@@ -16,13 +16,13 @@ export default function Price() {
   useEffect(() => {
     let params = new URLSearchParams(window.location.search);
 
-    let marketplace = params.get("marketplace");
+    let marketplace = params.get("marketplace").toUpperCase();
     let product = params.get("product");
 
     setMarketplace(marketplace);
     setProduct(product);
 
-    fetch(`http://localhost:3001/${marketplace}/${product}`, {
+    fetch(`http://localhost:3001/${marketplace.toLowerCase()}/${product}`, {
       method: "GET",
     })
       .catch(() => {})
@@ -57,7 +57,7 @@ export default function Price() {
         }}
       >
         <h2>
-          {marketplace}-{product}
+          {marketplace} - {product}
         </h2>
         <Chart prices={prices} />
       </div>

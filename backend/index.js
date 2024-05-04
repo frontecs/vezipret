@@ -34,8 +34,6 @@ app.get("/:marketplace/:product", async (req, res) => {
 });
 
 app.post("/:marketplace/:product", async (req, res) => {
-  console.log(`POST: ${req.params.marketplace}/${req.params.product}`);
-
   let price = req.headers.price;
 
   const { data: latestData, error: latestError } = await supabase
@@ -48,9 +46,13 @@ app.post("/:marketplace/:product", async (req, res) => {
   if (latestError) {
     return res.status(500).json({ error: latestError.message });
   }
+  console.log(
+    `POST: ${req.params.marketplace}/${req.params.product} | PRICE: ${price} ${
+      latestData[0] != null ? ` LATEST: ${latestData[0].price}` : ""
+    }`
+  );
 
   if (latestData.length > 0 && latestData[0].price == price) {
-    console.log("Price is the same");
     return res.status(200).json({ message: "Price is the same" });
   }
 
