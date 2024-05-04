@@ -18,7 +18,7 @@ let interval = setInterval(() => {
     if (price && !found) {
       found = true;
       let element = document.createElement("span");
-      element.innerHTML = `<img src="http://localhost:3000/logo.png" alt="vezipret" style="width: auto; height: 80px; margin-top: -30px; margin-bottom: -31px; margin-left: -1px"/>`;
+      element.innerHTML = `<img src="http://localhost:3000/logo.png" alt="vezipret" style="width: auto; height: 80px; margin-top: -30px; margin-bottom: -31px; margin-left: -1px";/>`;
 
       price = price.innerText;
       price = parseFloat(
@@ -34,7 +34,8 @@ let interval = setInterval(() => {
 
       let produs = document
         .getElementsByClassName("C68dpx")[0]
-        .innerText.replace("&", "and"); // browser doesn't like & in the url
+        .innerText.replace("&", "and")
+        .replace("/", "or"); // doesn't like some characters in the url
 
       element.onclick = function () {
         window.open(
