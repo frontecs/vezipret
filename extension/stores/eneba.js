@@ -34,8 +34,8 @@ let interval = setInterval(() => {
 
       let produs = document
         .getElementsByClassName("C68dpx")[0]
-        .innerText.replace("&", "and")
-        .replace("/", "or"); // doesn't like some characters in the url
+        .innerText.replace(/&/g, "and")
+        .replace(/\//g, "or"); // doesn't like some characters in the url
 
       element.onclick = function () {
         window.open(
