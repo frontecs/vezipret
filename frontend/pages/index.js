@@ -18,7 +18,7 @@ export default function Home() {
       <Topbar />
       <div className={styles.container}>
         <h1 className={styles.title}>
-          Instalează <Link href="/browser-extension">extensia</Link> pentru a
+          Instalează <Link href="/browser-extension.crx">extensia</Link> pentru a
           vedea istoricul prețurilor produselor tale favorite!
         </h1>
       </div>
