@@ -14,9 +14,14 @@
       "run_at": "document_idle"
     },
     {
-          "matches": ["https://*.emag.ro/*"],
-          "js": ["stores/emag.js"],
-          "run_at": "document_idle"
-        }
+      "matches": ["https://*.emag.ro/*"],
+      "js": ["stores/emag.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://*.eneba.com/*"],
+      "js": ["stores/eneba.js"],
+      "run_at": "document_idle"
+    }
   ]
 }
