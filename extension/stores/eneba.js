@@ -12,8 +12,8 @@ let interval = setInterval(() => {
   if (url != window.location.href) {
     found = false;
 
-    let price = document.getElementsByClassName("dsMtkH")[0];
-    let other_price = document.getElementsByClassName("L5ErLT")[0];
+    let price = document.getElementsByClassName("L5ErLT")[0];
+    let other_price = document.getElementsByClassName("L5ErLT")[1];
 
     if (price && !found) {
       found = true;
@@ -23,8 +23,10 @@ let interval = setInterval(() => {
       price = price.innerText;
       other_price = other_price.innerText;
 
-      price = price.replace(/[^0-9.]/g, "");
-      other_price = other_price.replace(/[^0-9.]/g, "");
+      price = parseFloat(price.replace(",", ".").replace(/[^0-9.]/g, ""));
+      other_price = parseFloat(
+        other_price.replace(",", ".").replace(/[^0-9.]/g, "")
+      );
 
       if (price > other_price) price = other_price;
 
